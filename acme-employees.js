@@ -33,15 +33,33 @@ const employees = [
   
   spacer('findManagerFor Shep Jr.')
   //given an employee and a list of employees, return the employee who is the manager
+  function findManagerFor(empObj, empArr){
+    for (let i = 0; i < empArr.length; i++){
+      let managerObj = empArr[i]
+      if(empObj.managerId === managerObj.id){
+        return managerObj
+      }
+    }
+  }
 
-
-  
   console.log(findManagerFor(findEmployeeByName('shep Jr.', employees), employees));//{ id: 4, name: 'shep', managerId: 2 }
   spacer('')
   
   spacer('findCoworkersFor Larry')
   
   //given an employee and a list of employees, return the employees who report to the same manager
+  function findCoworkersFor(empObj, empArr){
+    let coworkers = []
+    for (let i = 0; i < empArr.length; i++){
+      let coworkerObj = empArr[i]
+      if(empObj.managerId === coworkerObj.managerId && empObj.name !== coworkerObj.name){
+        coworkers.push(coworkerObj)
+      }
+    }
+    return coworkers
+  }
+
+
   console.log(findCoworkersFor(findEmployeeByName('larry', employees), employees));/*
   [ { id: 3, name: 'curly', managerId: 1 },
     { id: 99, name: 'lucy', managerId: 1 } ]
@@ -51,6 +69,19 @@ const employees = [
   
   spacer('findManagementChain for moe')
   //given an employee and a list of employees, return a the management chain for that employee. The management chain starts from the employee with no manager with the passed in employees manager 
+
+  function findManagementChainForEmployee(empObj, empArr){
+    let managerChainArr = []
+    for (let i = 0; i < empArr.length; i++){
+      let managerObj = empArr[i]
+      if (empObj.managerId === managerObj.id){
+        managerChainArr.unshift(managerObj)
+        empObj = managerObj
+      }
+    }
+    return managerChainArr
+  }
+
   console.log(findManagementChainForEmployee(findEmployeeByName('moe', employees), employees));//[  ]
   spacer('');
   
