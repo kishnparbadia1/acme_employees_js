@@ -76,7 +76,8 @@ const employees = [
       let managerObj = empArr[i]
       if (empObj.managerId === managerObj.id){
         managerChainArr.unshift(managerObj)
-        empObj = managerObj
+        empObj = managerChainArr[0]
+        i = -1
       }
     }
     return managerChainArr
